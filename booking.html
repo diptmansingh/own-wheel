@@ -1,0 +1,2087 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Your Car | Own Wheel - Self-Drive Car Rentals Lucknow</title>
+    <meta
+      name="description"
+      content="Book your self-drive car rental in Lucknow. Choose from Maruti Dzire, Tata Nexon, Hyundai i20. Easy online booking with document upload."
+    />
+    <meta
+      name="keywords"
+      content="book car rental Lucknow, rent car online, self drive booking, car hire reservation Lucknow"
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.ownwheel.in/booking.html" />
+    <meta property="og:title" content="Book Your Car | Own Wheel" />
+    <meta
+      property="og:description"
+      content="Book your self-drive car rental in Lucknow online. Quick and easy reservation."
+    />
+    <meta property="og:url" content="https://www.ownwheel.in/booking.html" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon" href="favicon.png" />
+    <meta name="theme-color" content="#5C0A1E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #5c0a1e;
+        --primary-dark: #3d0512;
+        --primary-light: #7a1a32;
+        --accent: #d4af37;
+        --accent-light: #f4d03f;
+        --white: #ffffff;
+        --light-gray: #f5f5f5;
+        --dark: #1a0509;
+        --text: #333333;
+        --text-light: #666666;
+        --success: #27ae60;
+        --danger: #e74c3c;
+        --glass: rgba(255, 255, 255, 0.05);
+        --font-heading: "Oswald", sans-serif;
+        --font-body: "Poppins", sans-serif;
+        --font-luxury: "Playfair Display", serif;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: var(--font-body);
+        background: var(--dark);
+        color: var(--white);
+        overflow-x: hidden;
+        line-height: 1.6;
+      }
+
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--dark);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--primary);
+        border-radius: 4px;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes slideInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-60px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      @keyframes slideInRight {
+        from {
+          opacity: 0;
+          transform: translateX(60px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-15px);
+        }
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .animate-fadeInUp {
+        animation: fadeInUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
+      .animate-slideInLeft {
+        animation: slideInLeft 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
+      .animate-slideInRight {
+        animation: slideInRight 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
+      .animate-delay-1 {
+        animation-delay: 0.1s;
+        opacity: 0;
+      }
+      .animate-delay-2 {
+        animation-delay: 0.25s;
+        opacity: 0;
+      }
+      .animate-delay-3 {
+        animation-delay: 0.4s;
+        opacity: 0;
+      }
+      .animate-delay-4 {
+        animation-delay: 0.55s;
+        opacity: 0;
+      }
+      .animate-delay-5 {
+        animation-delay: 0.7s;
+        opacity: 0;
+      }
+
+      /* Navigation */
+      .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        padding: 0.8rem 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.4s ease;
+        background: transparent;
+      }
+      .navbar.scrolled {
+        background: rgba(26, 5, 9, 0.97);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+        padding: 0.6rem 5%;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+      }
+      .logo-img {
+        height: 50px;
+        width: auto;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        transition: transform 0.3s;
+      }
+      .logo:hover .logo-img {
+        transform: scale(1.05);
+      }
+      .logo-text {
+        color: var(--white);
+        font-family: var(--font-heading);
+        font-weight: 700;
+        font-size: 1.6rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        line-height: 1;
+      }
+      .logo-text span {
+        color: var(--accent);
+        display: block;
+        font-size: 0.75rem;
+        letter-spacing: 5px;
+        font-family: var(--font-body);
+        font-weight: 500;
+        margin-top: 2px;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2.5rem;
+        list-style: none;
+      }
+      .nav-links a {
+        color: var(--white);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        position: relative;
+        transition: color 0.3s;
+        font-family: var(--font-heading);
+      }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -6px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--accent);
+        transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+      .nav-links a:hover {
+        color: var(--accent);
+      }
+      .nav-links a.active {
+        color: var(--accent);
+      }
+      .nav-links a.active::after {
+        width: 100%;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--white);
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 0.5rem;
+      }
+
+      /* Mobile Menu Overlay */
+      .mobile-menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(26, 5, 9, 0.98);
+        backdrop-filter: blur(20px);
+        z-index: 999;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        padding: 2rem;
+      }
+      .mobile-menu-overlay.active {
+        display: flex;
+      }
+      .mobile-menu-overlay a {
+        color: var(--white);
+        text-decoration: none;
+        font-family: var(--font-heading);
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        transition: color 0.3s;
+      }
+      .mobile-menu-overlay a:hover {
+        color: var(--accent);
+      }
+      .mobile-menu-overlay a.active {
+        color: var(--accent);
+      }
+      .mobile-menu-close {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        background: none;
+        border: none;
+        color: var(--white);
+        font-size: 2rem;
+        cursor: pointer;
+      }
+
+      /* Buttons */
+      .btn {
+        padding: 1.1rem 2.8rem;
+        border: none;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        font-family: var(--font-heading);
+      }
+      .btn-primary {
+        background: var(--accent);
+        color: var(--dark);
+        box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+      }
+      .btn-primary:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 12px 30px rgba(212, 175, 55, 0.5);
+        background: var(--accent-light);
+      }
+      .btn-outline {
+        background: transparent;
+        color: var(--white);
+        border: 2px solid rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(10px);
+      }
+      .btn-outline:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+        transform: translateY(-4px);
+        background: rgba(212, 175, 55, 0.05);
+      }
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--white);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        padding: 1rem 2.2rem;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s;
+        font-family: var(--font-heading);
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+      }
+      .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      /* Section Styles */
+      .section {
+        padding: 100px 5%;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      .section-header {
+        text-align: center;
+        margin-bottom: 4rem;
+      }
+      .section-header h2 {
+        font-family: var(--font-heading);
+        font-size: 2.8rem;
+        margin-bottom: 1rem;
+        color: var(--white);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+      .section-header p {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 1.05rem;
+        max-width: 600px;
+        margin: 0 auto;
+        font-weight: 300;
+      }
+      .accent-line {
+        width: 60px;
+        height: 3px;
+        background: var(--accent);
+        margin: 1.2rem auto;
+        border-radius: 2px;
+      }
+      .section-subtitle {
+        font-family: var(--font-luxury);
+        font-style: italic;
+        color: var(--accent);
+        font-size: 1.1rem;
+        letter-spacing: 2px;
+        margin-bottom: 0.5rem;
+      }
+
+      /* Page Header */
+      .page-header {
+        min-height: 50vh;
+        background: linear-gradient(
+          135deg,
+          var(--dark) 0%,
+          var(--primary-dark) 50%,
+          var(--primary) 100%
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        padding: 140px 5% 60px;
+        text-align: center;
+      }
+      .page-header::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          circle at 30% 50%,
+          rgba(212, 175, 55, 0.03) 0%,
+          transparent 50%
+        );
+      }
+      .page-header-content {
+        position: relative;
+        z-index: 2;
+        max-width: 800px;
+      }
+      .page-header h1 {
+        font-family: var(--font-heading);
+        font-size: 3.5rem;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        margin-bottom: 1rem;
+      }
+      .page-header p {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.75);
+        font-weight: 300;
+      }
+      .breadcrumb {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-top: 1.5rem;
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .breadcrumb a {
+        color: var(--accent);
+        text-decoration: none;
+        transition: opacity 0.3s;
+      }
+      .breadcrumb a:hover {
+        opacity: 0.8;
+      }
+
+      /* Footer */
+      .footer {
+        background: linear-gradient(180deg, var(--primary-dark), #0f0206);
+        border-top: 1px solid rgba(212, 175, 55, 0.1);
+        padding: 70px 5% 30px;
+        position: relative;
+      }
+      .footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--accent),
+          transparent
+        );
+      }
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 3rem;
+        margin-bottom: 3rem;
+      }
+      .footer-brand img {
+        height: 55px;
+        margin-bottom: 1.2rem;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+      }
+      .footer-brand h3 {
+        font-family: var(--font-heading);
+        font-size: 1.6rem;
+        margin-bottom: 1rem;
+        color: var(--accent);
+        letter-spacing: 2px;
+      }
+      .footer-brand p {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.9rem;
+        line-height: 1.8;
+        font-weight: 300;
+      }
+      .footer-links h4 {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-family: var(--font-heading);
+        color: var(--accent);
+      }
+      .footer-links ul {
+        list-style: none;
+      }
+      .footer-links li {
+        margin-bottom: 0.9rem;
+      }
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.6);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .footer-links a:hover {
+        color: var(--accent);
+        transform: translateX(5px);
+      }
+      .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding-top: 2rem;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 0.85rem;
+      }
+      .social-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+      .social-links a {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--white);
+        text-decoration: none;
+        transition: all 0.3s;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .social-links a:hover {
+        background: var(--accent);
+        color: var(--dark);
+        transform: translateY(-4px);
+        border-color: var(--accent);
+        box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+      }
+
+      /* Toast */
+      .toast {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: var(--white);
+        color: var(--dark);
+        padding: 1.2rem 2rem;
+        border-radius: 14px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        z-index: 3000;
+        transform: translateX(450px);
+        transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        font-weight: 600;
+        font-family: var(--font-body);
+        border-left: 4px solid var(--success);
+        max-width: 400px;
+      }
+      .toast.show {
+        transform: translateX(0);
+      }
+      .toast i {
+        color: var(--success);
+        font-size: 1.3rem;
+      }
+      .toast.error {
+        border-left-color: var(--danger);
+      }
+      .toast.error i {
+        color: var(--danger);
+      }
+
+      /* Content Pages */
+      .content-page {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 3rem 2rem;
+      }
+      .content-page h2 {
+        font-family: var(--font-heading);
+        font-size: 2rem;
+        color: var(--accent);
+        margin: 2rem 0 1rem;
+        letter-spacing: 1px;
+      }
+      .content-page h3 {
+        font-family: var(--font-heading);
+        font-size: 1.3rem;
+        color: var(--white);
+        margin: 1.5rem 0 0.8rem;
+        letter-spacing: 1px;
+      }
+      .content-page p {
+        color: rgba(255, 255, 255, 0.75);
+        margin-bottom: 1rem;
+        line-height: 1.8;
+        font-weight: 300;
+      }
+      .content-page ul,
+      .content-page ol {
+        color: rgba(255, 255, 255, 0.75);
+        margin: 1rem 0 1rem 1.5rem;
+        line-height: 1.8;
+      }
+      .content-page li {
+        margin-bottom: 0.5rem;
+      }
+      .content-page strong {
+        color: var(--accent);
+      }
+      .content-page a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .content-page a:hover {
+        text-decoration: underline;
+      }
+      .content-card {
+        background: linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.05),
+          rgba(255, 255, 255, 0.02)
+        );
+        border: 1px solid rgba(212, 175, 55, 0.1);
+        border-radius: 20px;
+        padding: 2rem;
+        margin: 1.5rem 0;
+      }
+      .content-card h3 {
+        margin-top: 0;
+        color: var(--accent);
+      }
+      .faq-item {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 1.5rem 0;
+      }
+      .faq-item:last-child {
+        border-bottom: none;
+      }
+      .faq-item h3 {
+        font-family: var(--font-heading);
+        font-size: 1.1rem;
+        color: var(--white);
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+      .faq-item h3 i {
+        color: var(--accent);
+        font-size: 1rem;
+      }
+      .faq-item p {
+        margin: 0;
+        padding-left: 1.8rem;
+      }
+
+      /* Form Styles */
+      .form-group {
+        margin-bottom: 1.8rem;
+      }
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.2rem;
+      }
+      label {
+        display: block;
+        margin-bottom: 0.6rem;
+        font-weight: 600;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: rgba(255, 255, 255, 0.8);
+        font-family: var(--font-heading);
+      }
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 1rem 1.2rem;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(212, 175, 55, 0.2);
+        border-radius: 12px;
+        color: var(--white);
+        font-family: var(--font-body);
+        font-size: 0.95rem;
+        transition: all 0.3s;
+        appearance: none;
+        -webkit-appearance: none;
+      }
+      select {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23D4AF37' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        padding-right: 2.5rem;
+        cursor: pointer;
+      }
+      select option {
+        background-color: #1a0509 !important;
+        color: #ffffff !important;
+        padding: 10px;
+        font-family: var(--font-body);
+      }
+      select optgroup {
+        background-color: #1a0509 !important;
+        color: #ffffff !important;
+      }
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: none;
+        border-color: var(--accent);
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+      }
+      input::placeholder,
+      textarea::placeholder {
+        color: rgba(255, 255, 255, 0.35);
+      }
+      input[type="checkbox"] {
+        width: auto;
+        accent-color: var(--accent);
+      }
+
+      /* Responsive */
+      @media (max-width: 968px) {
+        .nav-links {
+          display: none;
+        }
+        .mobile-menu-btn {
+          display: block;
+        }
+        .footer-content {
+          grid-template-columns: 1fr 1fr;
+        }
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+        .page-header h1 {
+          font-size: 2.5rem;
+        }
+      }
+      @media (max-width: 600px) {
+        .section-header h2 {
+          font-size: 2rem;
+        }
+        .page-header h1 {
+          font-size: 2rem;
+        }
+        .footer-content {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+        .section {
+          padding: 60px 5%;
+        }
+        .page-header {
+          min-height: 40vh;
+          padding: 100px 5% 40px;
+        }
+        .content-page {
+          padding: 2rem 1.5rem;
+        }
+        .btn {
+          padding: 0.9rem 2rem;
+          font-size: 0.8rem;
+        }
+        .logo-text {
+          font-size: 1.3rem;
+        }
+        .logo-img {
+          height: 40px;
+        }
+        .toast {
+          right: 15px;
+          left: 15px;
+          max-width: none;
+        }
+      }
+      @media (max-width: 400px) {
+        .page-header h1 {
+          font-size: 1.6rem;
+          letter-spacing: 1px;
+        }
+        .section-header h2 {
+          font-size: 1.6rem;
+        }
+      }
+
+      /* Booking Page Specific */
+      .booking-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 3rem 2rem;
+      }
+      .booking-layout {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 3rem;
+        align-items: start;
+      }
+      .booking-form-wrapper {
+        background: linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.05),
+          rgba(255, 255, 255, 0.02)
+        );
+        border: 1px solid rgba(212, 175, 55, 0.12);
+        border-radius: 24px;
+        padding: 2.5rem;
+      }
+      .booking-sidebar {
+        position: sticky;
+        top: 100px;
+      }
+      .car-preview {
+        background: linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.05),
+          rgba(255, 255, 255, 0.02)
+        );
+        border: 1px solid rgba(212, 175, 55, 0.12);
+        border-radius: 24px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+      }
+      .car-preview img {
+        width: 100%;
+        height: 160px;
+        object-fit: contain;
+        border-radius: 12px;
+        margin-bottom: 1rem;
+        filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+      }
+      .car-preview h3 {
+        font-family: var(--font-heading);
+        font-size: 1.3rem;
+        margin-bottom: 0.3rem;
+      }
+      .car-preview .type {
+        color: var(--accent);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+      .price-summary {
+        background: linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.05),
+          rgba(255, 255, 255, 0.02)
+        );
+        border: 1px solid rgba(212, 175, 55, 0.12);
+        border-radius: 24px;
+        padding: 1.5rem;
+      }
+      .price-summary h4 {
+        font-family: var(--font-heading);
+        color: var(--accent);
+        margin-bottom: 1rem;
+        letter-spacing: 1px;
+      }
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.6rem 0;
+        font-size: 0.9rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .summary-row:last-child {
+        border-bottom: none;
+      }
+      .summary-row.total {
+        border-top: 2px solid var(--accent);
+        margin-top: 0.5rem;
+        padding-top: 1rem;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--accent);
+        font-family: var(--font-heading);
+      }
+      .step-indicator {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-bottom: 2.5rem;
+        position: relative;
+      }
+      .step-dot {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.9rem;
+        border: 2px solid transparent;
+        transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        font-family: var(--font-heading);
+        position: relative;
+        z-index: 2;
+      }
+      .step-dot.active {
+        background: var(--accent);
+        color: var(--dark);
+        border-color: var(--accent);
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        transform: scale(1.1);
+      }
+      .step-dot.completed {
+        background: var(--success);
+        color: var(--white);
+        border-color: var(--success);
+      }
+      .step-line {
+        position: absolute;
+        top: 50%;
+        left: 20%;
+        right: 20%;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.08);
+        z-index: 1;
+        transform: translateY(-50%);
+      }
+      .form-step {
+        display: none;
+      }
+      .form-step.active {
+        display: block;
+        animation: fadeIn 0.4s ease;
+      }
+      .file-upload {
+        border: 2px dashed rgba(212, 175, 55, 0.25);
+        border-radius: 14px;
+        padding: 2.5rem 2rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.4s;
+        position: relative;
+        background: rgba(255, 255, 255, 0.02);
+      }
+      .file-upload:hover {
+        border-color: var(--accent);
+        background: rgba(212, 175, 55, 0.05);
+        transform: translateY(-2px);
+      }
+      .file-upload input {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        cursor: pointer;
+      }
+      .file-upload i {
+        font-size: 2.2rem;
+        color: var(--accent);
+        margin-bottom: 0.8rem;
+        display: block;
+      }
+      .file-upload p {
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 500;
+      }
+      .uploaded-files {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        margin-top: 1rem;
+      }
+      .file-tag {
+        background: rgba(212, 175, 55, 0.15);
+        color: var(--accent);
+        padding: 0.4rem 1rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-weight: 500;
+        border: 1px solid rgba(212, 175, 55, 0.2);
+      }
+      .file-tag button {
+        background: none;
+        border: none;
+        color: var(--accent);
+        cursor: pointer;
+        font-size: 0.75rem;
+        transition: transform 0.2s;
+      }
+      .file-tag button:hover {
+        transform: scale(1.2);
+        color: var(--danger);
+      }
+      .payment-methods {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+      .payment-method {
+        flex: 1;
+        border: 2px solid rgba(212, 175, 55, 0.15);
+        border-radius: 12px;
+        padding: 1.2rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        background: rgba(255, 255, 255, 0.03);
+      }
+      .payment-method:hover,
+      .payment-method.selected {
+        border-color: var(--accent);
+        background: rgba(212, 175, 55, 0.08);
+        transform: translateY(-3px);
+      }
+      .payment-method i {
+        font-size: 1.6rem;
+        margin-bottom: 0.6rem;
+        display: block;
+        color: var(--accent);
+      }
+      .payment-method span {
+        font-size: 0.8rem;
+        font-weight: 600;
+        font-family: var(--font-heading);
+        letter-spacing: 0.5px;
+      }
+      .unavailable-message {
+        background: rgba(231, 76, 60, 0.1);
+        border: 1px solid var(--danger);
+        color: var(--danger);
+        padding: 1rem 1.2rem;
+        border-radius: 12px;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+        display: none;
+        font-weight: 500;
+      }
+      .unavailable-message.active {
+        display: block;
+        animation: fadeIn 0.3s ease;
+      }
+      .success-message {
+        text-align: center;
+        padding: 3rem 2rem;
+      }
+      .success-message i {
+        font-size: 4.5rem;
+        color: var(--success);
+        margin-bottom: 1.5rem;
+        animation: pulse 2s infinite;
+      }
+      .success-message h3 {
+        font-family: var(--font-heading);
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+        letter-spacing: 1px;
+      }
+      .success-message p {
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 2rem;
+        font-size: 1rem;
+      }
+      .booking-id {
+        background: var(--accent);
+        color: var(--dark);
+        padding: 1rem 2rem;
+        border-radius: 12px;
+        font-weight: 800;
+        font-size: 1.2rem;
+        display: inline-block;
+        margin-bottom: 2rem;
+        font-family: var(--font-heading);
+        letter-spacing: 2px;
+        box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+      }
+      .form-navigation {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2.5rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(212, 175, 55, 0.1);
+      }
+      .car-selector {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+      .car-option {
+        border: 2px solid rgba(212, 175, 55, 0.15);
+        border-radius: 16px;
+        padding: 1rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        background: rgba(255, 255, 255, 0.03);
+      }
+      .car-option:hover {
+        border-color: var(--accent);
+        background: rgba(212, 175, 55, 0.05);
+      }
+      .car-option.selected {
+        border-color: var(--accent);
+        background: rgba(212, 175, 55, 0.1);
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+      }
+      .car-option img {
+        width: 100%;
+        height: 80px;
+        object-fit: contain;
+        margin-bottom: 0.5rem;
+      }
+      .car-option h4 {
+        font-family: var(--font-heading);
+        font-size: 0.9rem;
+        margin-bottom: 0.2rem;
+      }
+      .car-option span {
+        font-size: 0.75rem;
+        color: var(--accent);
+      }
+
+      /* Responsive Booking */
+      @media (max-width: 968px) {
+        .booking-layout {
+          grid-template-columns: 1fr;
+        }
+        .booking-sidebar {
+          position: static;
+          order: 1;
+        }
+        .car-preview {
+          display: none;
+        }
+        .car-selector {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      @media (max-width: 600px) {
+        .booking-container {
+          padding: 2rem 1rem;
+        }
+        .booking-form-wrapper {
+          padding: 1.5rem;
+        }
+        .car-selector {
+          grid-template-columns: 1fr;
+        }
+        .car-option img {
+          height: 120px;
+        }
+        .payment-methods {
+          flex-direction: column;
+        }
+        .step-indicator {
+          gap: 0.8rem;
+        }
+        .step-dot {
+          width: 38px;
+          height: 38px;
+          font-size: 0.8rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenu">
+      <button
+        class="mobile-menu-close"
+        onclick="toggleMobileMenu()"
+        aria-label="Close menu"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+      <a href="index.html">Home</a>
+      <a href="cars.html">Our Cars</a>
+      <a href="booking.html" class="active">Book Now</a>
+      <a href="how-it-works.html">How It Works</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="Own Wheel Logo" class="logo-img" />
+        <div class="logo-text">OWN WHEEL<span>ELEVATE YOUR DRIVE</span></div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="cars.html">Cars</a></li>
+        <li><a href="booking.html" class="active">Book Now</a></li>
+        <li><a href="how-it-works.html">How It Works</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <button
+        class="mobile-menu-btn"
+        onclick="toggleMobileMenu()"
+        aria-label="Toggle menu"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+      <div class="page-header-content animate-fadeInUp">
+        <h1>Book Your Ride</h1>
+        <p>Complete the form below to reserve your self-drive car in Lucknow</p>
+        <div class="breadcrumb">
+          <a href="index.html">Home</a>
+          <span>/</span>
+          <span>Book Now</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Booking Form -->
+    <div class="booking-container">
+      <div class="booking-layout">
+        <div class="booking-form-wrapper">
+          <!-- Step Indicator -->
+          <div class="step-indicator">
+            <div class="step-line"></div>
+            <div class="step-dot active" id="dot1">1</div>
+            <div class="step-dot" id="dot2">2</div>
+            <div class="step-dot" id="dot3">3</div>
+            <div class="step-dot" id="dot4">4</div>
+          </div>
+
+          <!-- Step 1: Car & Date -->
+          <div class="form-step active" id="step1">
+            <h3
+              style="
+                font-family: var(--font-heading);
+                margin-bottom: 1.5rem;
+                letter-spacing: 1px;
+              "
+            >
+              <i
+                class="fas fa-car"
+                style="color: var(--accent); margin-right: 0.5rem"
+              ></i>
+              Select Your Car
+            </h3>
+            <div class="car-selector">
+              <div
+                class="car-option"
+                id="opt-dzire"
+                onclick="selectCar('dzire')"
+              >
+                <img src="images/maruti_dzire.png" alt="Maruti Dzire" />
+                <h4>Maruti Dzire</h4>
+                <span>Sedan · ₹143/hr</span>
+              </div>
+              <div
+                class="car-option"
+                id="opt-nexon"
+                onclick="selectCar('nexon')"
+              >
+                <img src="images/tata_nexon.png" alt="Tata Nexon" />
+                <h4>Tata Nexon</h4>
+                <span>SUV · ₹190/hr</span>
+              </div>
+              <div class="car-option" id="opt-i20" onclick="selectCar('i20')">
+                <img src="images/hyundai_i20.png" alt="Hyundai i20" />
+                <h4>Hyundai i20</h4>
+                <span>Hatchback · ₹120/hr</span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label
+                  ><i
+                    class="fas fa-calendar-alt"
+                    style="margin-right: 0.3rem"
+                  ></i>
+                  Pickup Date & Time</label
+                >
+                <input
+                  type="datetime-local"
+                  id="pickupDate"
+                  required
+                  onchange="checkAvailability()"
+                />
+              </div>
+              <div class="form-group">
+                <label
+                  ><i
+                    class="fas fa-calendar-check"
+                    style="margin-right: 0.3rem"
+                  ></i>
+                  Return Date & Time</label
+                >
+                <input
+                  type="datetime-local"
+                  id="returnDate"
+                  required
+                  onchange="checkAvailability()"
+                />
+              </div>
+            </div>
+            <div class="unavailable-message" id="unavailableMsg">
+              <i class="fas fa-exclamation-triangle"></i> This vehicle is
+              already booked for the selected time slot. Please choose different
+              timings.
+            </div>
+            <div class="form-group">
+              <label>Rental Duration</label>
+              <select id="duration" onchange="calculatePrice()">
+                <option value="1">1 Hour</option>
+                <option value="8">8 Hours</option>
+                <option value="12">12 Hours</option>
+                <option value="24">24 Hours (1 Day)</option>
+                <option value="48">48 Hours (2 Days)</option>
+                <option value="72">72 Hours (3 Days)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Step 2: Personal Details -->
+          <div class="form-step" id="step2">
+            <h3
+              style="
+                font-family: var(--font-heading);
+                margin-bottom: 1.5rem;
+                letter-spacing: 1px;
+              "
+            >
+              <i
+                class="fas fa-user"
+                style="color: var(--accent); margin-right: 0.5rem"
+              ></i>
+              Personal Details
+            </h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Full Name</label>
+                <input
+                  type="text"
+                  id="fullName"
+                  placeholder="Enter your full name"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Phone Number</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  placeholder="+91 98765 43210"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Email Address</label>
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="your@email.com"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Age</label>
+                <input
+                  type="number"
+                  id="age"
+                  placeholder="Must be 21+"
+                  min="21"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Address</label>
+              <textarea
+                id="address"
+                rows="3"
+                placeholder="Enter your current address"
+                required
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label>Purpose of Rental</label>
+              <select id="purpose">
+                <option value="personal">Personal Use</option>
+                <option value="business">Business Trip</option>
+                <option value="wedding">Wedding / Event</option>
+                <option value="tourism">Tourism</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Step 3: Documents -->
+          <div class="form-step" id="step3">
+            <h3
+              style="
+                font-family: var(--font-heading);
+                margin-bottom: 1.5rem;
+                letter-spacing: 1px;
+              "
+            >
+              <i
+                class="fas fa-file-upload"
+                style="color: var(--accent); margin-right: 0.5rem"
+              ></i>
+              Upload Documents
+            </h3>
+            <div class="form-group">
+              <label>Aadhaar Card (Front & Back)</label>
+              <div class="file-upload">
+                <input
+                  type="file"
+                  id="aadhaar"
+                  accept="image/*,application/pdf"
+                  multiple
+                  onchange="handleFileUpload(this, 'aadhaarFiles')"
+                />
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Click to upload Aadhaar Card</p>
+                <span
+                  style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.5)"
+                  >JPG, PNG, PDF up to 5MB each</span
+                >
+              </div>
+              <div class="uploaded-files" id="aadhaarFiles"></div>
+            </div>
+            <div class="form-group">
+              <label>Driving License</label>
+              <div class="file-upload">
+                <input
+                  type="file"
+                  id="license"
+                  accept="image/*,application/pdf"
+                  onchange="handleFileUpload(this, 'licenseFiles')"
+                />
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Click to upload Driving License</p>
+                <span
+                  style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.5)"
+                  >JPG, PNG, PDF up to 5MB</span
+                >
+              </div>
+              <div class="uploaded-files" id="licenseFiles"></div>
+            </div>
+            <div class="form-group">
+              <label>Live Photo / Selfie</label>
+              <div class="file-upload">
+                <input
+                  type="file"
+                  id="photo"
+                  accept="image/*"
+                  onchange="handleFileUpload(this, 'photoFiles')"
+                />
+                <i class="fas fa-camera"></i>
+                <p>Click to upload Live Photo</p>
+                <span
+                  style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.5)"
+                  >Clear face visible, JPG or PNG</span
+                >
+              </div>
+              <div class="uploaded-files" id="photoFiles"></div>
+            </div>
+            <div class="form-group">
+              <label>Local Reference / Hotel Proof</label>
+              <div class="file-upload">
+                <input
+                  type="file"
+                  id="reference"
+                  accept="image/*,application/pdf"
+                  onchange="handleFileUpload(this, 'referenceFiles')"
+                />
+                <i class="fas fa-home"></i>
+                <p>Click to upload Reference Proof</p>
+                <span
+                  style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.5)"
+                  >Optional for local residents</span
+                >
+              </div>
+              <div class="uploaded-files" id="referenceFiles"></div>
+            </div>
+          </div>
+
+          <!-- Step 4: Payment -->
+          <div class="form-step" id="step4">
+            <h3
+              style="
+                font-family: var(--font-heading);
+                margin-bottom: 1.5rem;
+                letter-spacing: 1px;
+              "
+            >
+              <i
+                class="fas fa-credit-card"
+                style="color: var(--accent); margin-right: 0.5rem"
+              ></i>
+              Payment
+            </h3>
+            <div class="payment-methods">
+              <div
+                class="payment-method selected"
+                onclick="selectPayment(this)"
+                role="button"
+                tabindex="0"
+              >
+                <i class="fas fa-qrcode"></i>
+                <span>UPI / QR</span>
+              </div>
+              <div
+                class="payment-method"
+                onclick="selectPayment(this)"
+                role="button"
+                tabindex="0"
+              >
+                <i class="fas fa-credit-card"></i>
+                <span>Card</span>
+              </div>
+              <div
+                class="payment-method"
+                onclick="selectPayment(this)"
+                role="button"
+                tabindex="0"
+              >
+                <i class="fas fa-money-bill-wave"></i>
+                <span>Cash</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label
+                style="
+                  display: flex;
+                  align-items: flex-start;
+                  gap: 0.8rem;
+                  cursor: pointer;
+                  font-weight: 400;
+                  text-transform: none;
+                  font-family: var(--font-body);
+                  line-height: 1.5;
+                "
+              >
+                <input
+                  type="checkbox"
+                  id="terms"
+                  style="width: auto; margin-top: 0.3rem"
+                />
+                <span
+                  >I agree to the
+                  <a
+                    href="terms.html"
+                    style="color: var(--accent)"
+                    target="_blank"
+                    >terms & conditions</a
+                  >
+                  and confirm all documents provided are genuine and
+                  valid.</span
+                >
+              </label>
+            </div>
+          </div>
+
+          <!-- Success -->
+          <div class="form-step" id="stepSuccess">
+            <div class="success-message">
+              <i class="fas fa-check-circle"></i>
+              <h3>Booking Request Submitted!</h3>
+              <p>
+                Your booking request has been sent for approval. You will
+                receive a confirmation email once our team reviews and approves
+                your booking.
+              </p>
+              <div class="booking-id" id="bookingId">OWN-XXXXX</div>
+              <a href="index.html" class="btn btn-primary">
+                <i class="fas fa-home"></i> Back to Home
+              </a>
+            </div>
+          </div>
+
+          <!-- Navigation -->
+          <div class="form-navigation" id="formNav">
+            <button
+              class="btn-secondary"
+              id="prevBtn"
+              onclick="prevStep()"
+              style="visibility: hidden"
+            >
+              <i class="fas fa-arrow-left"></i> Back
+            </button>
+            <button class="btn btn-primary" id="nextBtn" onclick="nextStep()">
+              Next <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="booking-sidebar">
+          <div class="car-preview" id="carPreview">
+            <img
+              src="images/maruti_dzire.png"
+              alt="Selected Car"
+              id="previewImg"
+            />
+            <h3 id="previewName">Maruti Dzire</h3>
+            <div class="type" id="previewType">Sedan</div>
+          </div>
+          <div class="price-summary">
+            <h4><i class="fas fa-receipt"></i> Price Summary</h4>
+            <div class="summary-row">
+              <span>Rental Charges</span>
+              <span id="sideRental">₹143</span>
+            </div>
+            <div class="summary-row">
+              <span>Security Deposit</span>
+              <span>₹2,500</span>
+            </div>
+            <div class="summary-row">
+              <span>Advance Fee</span>
+              <span>₹500</span>
+            </div>
+            <div class="summary-row total">
+              <span>Total Payable Now</span>
+              <span id="sideTotal">₹500</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <img src="logo.png" alt="Own Wheel Logo" />
+          <p>
+            Elevate Your Drive with premium self-drive car rentals in Lucknow.
+          </p>
+          <div class="social-links">
+            <a href="#" aria-label="Facebook"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="#" aria-label="Instagram"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a href="#" aria-label="WhatsApp"
+              ><i class="fab fa-whatsapp"></i
+            ></a>
+            <a href="tel:+919340406464" aria-label="Phone"
+              ><i class="fas fa-phone"></i
+            ></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="cars.html">Our Cars</a></li>
+            <li><a href="booking.html">Book Now</a></li>
+            <li><a href="how-it-works.html">How It Works</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="terms.html">Terms & Conditions</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="cancellation.html">Cancellation Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Contact</h4>
+          <ul>
+            <li>
+              <a href="tel:+919340406464"
+                ><i class="fas fa-phone"></i> +91 93404 06464</a
+              >
+            </li>
+            <li>
+              <a href="mailto:bookings@ownwheel.com"
+                ><i class="fas fa-envelope"></i> bookings@ownwheel.com</a
+              >
+            </li>
+            <li>
+              <a href="#"><i class="fas fa-map-marker-alt"></i> Lucknow, UP</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; Own Wheel Car Rentals. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Toast -->
+    <div class="toast" id="toast" role="alert">
+      <i class="fas fa-check-circle"></i>
+      <span id="toastMsg">Operation successful</span>
+    </div>
+
+    <script>
+      const GOOGLE_SCRIPT_URL =
+        "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec";
+      const carData = {
+        dzire: {
+          name: "Maruti Dzire",
+          type: "Sedan",
+          img: "images/maruti_dzire.png",
+          pricing: { hourly: 143, eight: 900, twelve: 1350, daily: 2250 },
+        },
+        nexon: {
+          name: "Tata Nexon",
+          type: "SUV",
+          img: "images/tata_nexon.png",
+          pricing: { hourly: 190, eight: 1200, twelve: 1800, daily: 3000 },
+        },
+        i20: {
+          name: "Hyundai i20",
+          type: "Hatchback",
+          img: "images/hyundai_i20.png",
+          pricing: { hourly: 120, eight: 800, twelve: 1200, daily: 2000 },
+        },
+      };
+
+      let currentStep = 1;
+      let selectedCarId = "dzire";
+      let uploadedFiles = {
+        aadhaar: [],
+        license: [],
+        photo: [],
+        reference: [],
+      };
+      let bookings = JSON.parse(
+        localStorage.getItem("ownwheel_bookings") || "[]",
+      );
+      let approvedBookings = JSON.parse(
+        localStorage.getItem("ownwheel_approved") || "[]",
+      );
+
+      // Init
+      window.addEventListener("DOMContentLoaded", () => {
+        const params = new URLSearchParams(window.location.search);
+        const carParam = params.get("car");
+        if (carParam && carData[carParam]) selectCar(carParam);
+        else selectCar("dzire");
+
+        const now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+        document.getElementById("pickupDate").min = now
+          .toISOString()
+          .slice(0, 16);
+        document.getElementById("returnDate").min = now
+          .toISOString()
+          .slice(0, 16);
+      });
+
+      function selectCar(carId) {
+        selectedCarId = carId;
+        document
+          .querySelectorAll(".car-option")
+          .forEach((opt) => opt.classList.remove("selected"));
+        document.getElementById("opt-" + carId).classList.add("selected");
+
+        const car = carData[carId];
+        document.getElementById("previewImg").src = car.img;
+        document.getElementById("previewName").textContent = car.name;
+        document.getElementById("previewType").textContent = car.type;
+        calculatePrice();
+      }
+
+      function calculatePrice() {
+        const duration = parseInt(document.getElementById("duration").value);
+        const pricing = carData[selectedCarId].pricing;
+        let price = 0;
+        if (duration <= 1) price = pricing.hourly;
+        else if (duration <= 8) price = pricing.eight;
+        else if (duration <= 12) price = pricing.twelve;
+        else {
+          const days = Math.ceil(duration / 24);
+          price = pricing.daily * days;
+        }
+
+        document.getElementById("sideRental").textContent =
+          "₹" + price.toLocaleString("en-IN");
+        return price;
+      }
+
+      function checkAvailability() {
+        const pickup = new Date(document.getElementById("pickupDate").value);
+        const returnD = new Date(document.getElementById("returnDate").value);
+        if (!pickup || !returnD || isNaN(pickup) || isNaN(returnD)) return;
+
+        const isUnavailable = approvedBookings.some((b) => {
+          if (b.carId !== selectedCarId) return false;
+          const bPickup = new Date(b.pickupDate);
+          const bReturn = new Date(b.returnDate);
+          return pickup < bReturn && returnD > bPickup;
+        });
+
+        const msg = document.getElementById("unavailableMsg");
+        if (isUnavailable) msg.classList.add("active");
+        else msg.classList.remove("active");
+      }
+
+      function showStep(step) {
+        document
+          .querySelectorAll(".form-step")
+          .forEach((s) => s.classList.remove("active"));
+        if (step === 5) {
+          document.getElementById("stepSuccess").classList.add("active");
+          document.getElementById("formNav").style.display = "none";
+        } else {
+          document.getElementById("step" + step).classList.add("active");
+          document.getElementById("formNav").style.display = "flex";
+          document.getElementById("prevBtn").style.visibility =
+            step === 1 ? "hidden" : "visible";
+          document.getElementById("nextBtn").innerHTML =
+            step === 4
+              ? 'Pay ₹500 & Submit <i class="fas fa-check"></i>'
+              : 'Next <i class="fas fa-arrow-right"></i>';
+        }
+      }
+
+      function updateStepIndicator() {
+        for (let i = 1; i <= 4; i++) {
+          const dot = document.getElementById("dot" + i);
+          dot.classList.remove("active", "completed");
+          if (i < currentStep) dot.classList.add("completed");
+          else if (i === currentStep) dot.classList.add("active");
+        }
+      }
+
+      function nextStep() {
+        if (!validateStep(currentStep)) return;
+        if (currentStep === 4) {
+          submitBooking();
+          return;
+        }
+        if (currentStep < 4) {
+          currentStep++;
+          showStep(currentStep);
+          updateStepIndicator();
+        }
+      }
+
+      function prevStep() {
+        if (currentStep > 1) {
+          currentStep--;
+          showStep(currentStep);
+          updateStepIndicator();
+        }
+      }
+
+      function validateStep(step) {
+        if (step === 1) {
+          const pickup = document.getElementById("pickupDate").value;
+          const returnD = document.getElementById("returnDate").value;
+          if (!pickup || !returnD) {
+            showToast("Please select pickup and return dates", "error");
+            return false;
+          }
+          if (new Date(returnD) <= new Date(pickup)) {
+            showToast("Return date must be after pickup date", "error");
+            return false;
+          }
+          if (
+            document
+              .getElementById("unavailableMsg")
+              .classList.contains("active")
+          ) {
+            showToast("Please select available time slot", "error");
+            return false;
+          }
+        }
+        if (step === 2) {
+          const name = document.getElementById("fullName").value.trim();
+          const phone = document.getElementById("phone").value.trim();
+          const email = document.getElementById("email").value.trim();
+          const age = document.getElementById("age").value;
+          if (!name || !phone || !email || !age) {
+            showToast("Please fill all required fields", "error");
+            return false;
+          }
+          if (parseInt(age) < 21) {
+            showToast("You must be at least 21 years old", "error");
+            return false;
+          }
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            showToast("Please enter a valid email", "error");
+            return false;
+          }
+        }
+        if (step === 3) {
+          if (
+            uploadedFiles.aadhaar.length === 0 ||
+            uploadedFiles.license.length === 0 ||
+            uploadedFiles.photo.length === 0
+          ) {
+            showToast("Please upload Aadhaar, License, and Photo", "error");
+            return false;
+          }
+        }
+        if (step === 4) {
+          if (!document.getElementById("terms").checked) {
+            showToast("Please accept the terms", "error");
+            return false;
+          }
+        }
+        return true;
+      }
+
+      function handleFileUpload(input, containerId) {
+        const files = Array.from(input.files);
+        const container = document.getElementById(containerId);
+        const type = containerId.replace("Files", "");
+        files.forEach((file) => {
+          if (file.size > 5 * 1024 * 1024) {
+            showToast("File too large: " + file.name, "error");
+            return;
+          }
+          uploadedFiles[type].push(file);
+          const tag = document.createElement("div");
+          tag.className = "file-tag";
+          tag.innerHTML = `<i class="fas fa-file-alt"></i> ${file.name} <button onclick="removeFile(this, '${type}', '${file.name.replace(/'/g, "\'")}')"><i class="fas fa-times"></i></button>`;
+          container.appendChild(tag);
+        });
+        if (files.length > 0) showToast(`${files.length} file(s) uploaded`);
+      }
+
+      function removeFile(btn, type, fileName) {
+        uploadedFiles[type] = uploadedFiles[type].filter(
+          (f) => f.name !== fileName,
+        );
+        btn.parentElement.remove();
+      }
+
+      function selectPayment(el) {
+        document
+          .querySelectorAll(".payment-method")
+          .forEach((m) => m.classList.remove("selected"));
+        el.classList.add("selected");
+      }
+
+      async function submitBooking() {
+        const bookingId =
+          "OWN-" + Math.random().toString(36).substr(2, 6).toUpperCase();
+        const bookingData = {
+          action: "submitBooking",
+          bookingId,
+          carId: selectedCarId,
+          carName: carData[selectedCarId].name,
+          carType: carData[selectedCarId].type,
+          pickupDate: document.getElementById("pickupDate").value,
+          returnDate: document.getElementById("returnDate").value,
+          duration: document.getElementById("duration").value,
+          rentalPrice: calculatePrice(),
+          advanceFee: 500,
+          securityDeposit: 2500,
+          customerName: document.getElementById("fullName").value.trim(),
+          phone: document.getElementById("phone").value.trim(),
+          email: document.getElementById("email").value.trim(),
+          age: document.getElementById("age").value,
+          address: document.getElementById("address").value.trim(),
+          purpose: document.getElementById("purpose").value,
+          documents: {
+            aadhaar: uploadedFiles.aadhaar.map((f) => f.name),
+            license: uploadedFiles.license.map((f) => f.name),
+            photo: uploadedFiles.photo.map((f) => f.name),
+            reference: uploadedFiles.reference.map((f) => f.name),
+          },
+          status: "Pending",
+          timestamp: new Date().toISOString(),
+        };
+
+        bookings.push(bookingData);
+        localStorage.setItem("ownwheel_bookings", JSON.stringify(bookings));
+
+        if (!GOOGLE_SCRIPT_URL.includes("YOUR_SCRIPT")) {
+          try {
+            await fetch(GOOGLE_SCRIPT_URL, {
+              method: "POST",
+              mode: "no-cors",
+              body: JSON.stringify(bookingData),
+            });
+          } catch (e) {
+            console.log("Demo mode");
+          }
+        }
+
+        document.getElementById("bookingId").textContent = bookingId;
+        currentStep = 5;
+        showStep(5);
+        updateStepIndicator();
+        showToast("Booking submitted! Awaiting approval.");
+      }
+
+      // Mobile menu
+      function toggleMobileMenu() {
+        document.getElementById("mobileMenu").classList.toggle("active");
+        document.body.style.overflow = document
+          .getElementById("mobileMenu")
+          .classList.contains("active")
+          ? "hidden"
+          : "";
+      }
+
+      // Nav scroll
+      window.addEventListener("scroll", () => {
+        const navbar = document.getElementById("navbar");
+        if (window.scrollY > 50) navbar.classList.add("scrolled");
+        else navbar.classList.remove("scrolled");
+      });
+
+      // Toast
+      function showToast(message, type = "success") {
+        const toast = document.getElementById("toast");
+        const msg = document.getElementById("toastMsg");
+        const icon = toast.querySelector("i");
+        msg.textContent = message;
+        icon.className =
+          type === "error"
+            ? "fas fa-exclamation-circle"
+            : "fas fa-check-circle";
+        toast.className = "toast show" + (type === "error" ? " error" : "");
+        setTimeout(() => toast.classList.remove("show"), 3500);
+      }
+    </script>
+  </body>
+</html>
