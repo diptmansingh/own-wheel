@@ -480,6 +480,39 @@
         opacity: 0.8;
       }
 
+      /* selfie style */
+      .live-photo-container {
+        background: linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.05),
+          rgba(255, 255, 255, 0.02)
+        );
+        border: 2px dashed rgba(212, 175, 55, 0.25);
+        border-radius: 14px;
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.4s;
+      }
+      .live-photo-container.active {
+        border-color: var(--accent);
+        background: rgba(212, 175, 55, 0.05);
+      }
+      .camera-placeholder {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 200px;
+      }
+      .camera-controls button {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.8rem;
+      }
+      #video {
+        transform: scaleX(-1); /* Mirror effect for selfie */
+        border: 2px solid var(--accent);
+      }
+
       /* Footer */
       .footer {
         background: linear-gradient(180deg, var(--primary-dark), #0f0206);
@@ -1337,7 +1370,7 @@
                   type="datetime-local"
                   id="pickupDate"
                   required
-                  onchange="checkAvailability()"
+                  onchange="handlePickupChange()"
                 />
               </div>
               <div class="form-group">
@@ -1352,7 +1385,7 @@
                   type="datetime-local"
                   id="returnDate"
                   required
-                  onchange="checkAvailability()"
+                  onchange="handleReturnChange()"
                 />
               </div>
             </div>
@@ -1363,7 +1396,7 @@
             </div>
             <div class="form-group">
               <label>Rental Duration</label>
-              <select id="duration" onchange="calculatePrice()">
+              <select id="duration" onchange="handleDurationChange()">
                 <option value="1">1 Hour</option>
                 <option value="8">8 Hours</option>
                 <option value="12">12 Hours</option>
@@ -1504,20 +1537,108 @@
               <div class="uploaded-files" id="licenseFiles"></div>
             </div>
             <div class="form-group">
-              <label>Live Photo / Selfie</label>
-              <div class="file-upload">
-                <input
-                  type="file"
-                  id="photo"
-                  accept="image/*"
-                  onchange="handleFileUpload(this, 'photoFiles')"
-                />
-                <i class="fas fa-camera"></i>
-                <p>Click to upload Live Photo</p>
-                <span
-                  style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.5)"
-                  >Clear face visible, JPG or PNG</span
+              <label>Live Photo / Selfie </label>
+              <div class="live-photo-container" id="livePhotoContainer">
+                <div class="camera-preview" id="cameraPreview">
+                  <video
+                    id="video"
+                    autoplay
+                    playsinline
+                    style="
+                      width: 100%;
+                      max-height: 300px;
+                      border-radius: 12px;
+                      display: none;
+                    "
+                  ></video>
+                  <canvas id="canvas" style="display: none"></canvas>
+                  <div class="camera-placeholder" id="cameraPlaceholder">
+                    <i
+                      class="fas fa-camera"
+                      style="
+                        font-size: 2.5rem;
+                        color: var(--accent);
+                        margin-bottom: 1rem;
+                      "
+                    ></i>
+                    <p style="font-weight: 600; margin-bottom: 0.5rem">
+                      Take a Live Photo
+                    </p>
+                    <p
+                      style="
+                        font-size: 0.8rem;
+                        color: rgba(255, 255, 255, 0.6);
+                        max-width: 280px;
+                        line-height: 1.5;
+                      "
+                    >
+                      <i
+                        class="fas fa-lightbulb"
+                        style="color: var(--accent)"
+                      ></i>
+                      Ensure you're in a <strong>well-lit area</strong><br />
+                      <i class="fas fa-square" style="color: var(--accent)"></i>
+                      Use a <strong>plain white or light background</strong
+                      ><br />
+                      <i class="fas fa-user" style="color: var(--accent)"></i>
+                      Your <strong>face must be clearly visible</strong><br />
+                      <i
+                        class="fas fa-glasses"
+                        style="color: var(--accent)"
+                      ></i>
+                      Remove <strong>sunglasses, masks, or caps</strong><br />
+                      <i class="fas fa-eye" style="color: var(--accent)"></i>
+                      Look <strong>directly at the camera</strong>
+                    </p>
+                  </div>
+                  <img
+                    id="capturedPhoto"
+                    style="
+                      width: 100%;
+                      max-height: 300px;
+                      border-radius: 12px;
+                      display: none;
+                      object-fit: cover;
+                    "
+                  />
+                </div>
+                <div
+                  class="camera-controls"
+                  style="
+                    display: flex;
+                    gap: 1rem;
+                    justify-content: center;
+                    margin-top: 1rem;
+                  "
                 >
+                  <button
+                    type="button"
+                    class="btn-secondary"
+                    id="startCameraBtn"
+                    onclick="startCamera()"
+                  >
+                    <i class="fas fa-video"></i> Open Camera
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="captureBtn"
+                    onclick="capturePhoto()"
+                    style="display: none"
+                  >
+                    <i class="fas fa-camera"></i> Capture
+                  </button>
+                  <button
+                    type="button"
+                    class="btn-secondary"
+                    id="retakeBtn"
+                    onclick="retakePhoto()"
+                    style="display: none"
+                  >
+                    <i class="fas fa-redo"></i> Retake
+                  </button>
+                </div>
+                <input type="hidden" id="photoData" name="photoData" />
               </div>
               <div class="uploaded-files" id="photoFiles"></div>
             </div>
@@ -1556,65 +1677,188 @@
               ></i>
               Payment
             </h3>
-            <div class="payment-methods">
+            <div class="payment-section">
               <div
-                class="payment-method selected"
-                onclick="selectPayment(this)"
-                role="button"
-                tabindex="0"
+                class="upi-qr-box"
+                style="
+                  text-align: center;
+                  padding: 2rem;
+                  background: linear-gradient(
+                    145deg,
+                    rgba(255, 255, 255, 0.05),
+                    rgba(255, 255, 255, 0.02)
+                  );
+                  border: 1px solid rgba(212, 175, 55, 0.15);
+                  border-radius: 20px;
+                  margin-bottom: 1.5rem;
+                "
               >
-                <i class="fas fa-qrcode"></i>
-                <span>UPI / QR</span>
+                <h4
+                  style="
+                    font-family: var(--font-heading);
+                    color: var(--accent);
+                    margin-bottom: 1rem;
+                    letter-spacing: 1px;
+                  "
+                >
+                  <i class="fas fa-qrcode"></i> Pay Advance Fee via UPI
+                </h4>
+                <p
+                  style="
+                    color: rgba(255, 255, 255, 0.7);
+                    font-size: 0.9rem;
+                    margin-bottom: 1.5rem;
+                  "
+                >
+                  Scan the QR code with any UPI app (Google Pay, PhonePe, Paytm,
+                  etc.)<<br />
+                  <strong style="color: var(--accent)">Amount: ₹500</strong>
+                </p>
+                <div
+                  style="
+                    background: white;
+                    padding: 1rem;
+                    border-radius: 12px;
+                    display: inline-block;
+                    margin-bottom: 1rem;
+                  "
+                >
+                  <!-- Replace src with your actual QR code image -->
+                  <img
+                    src="images/upi-qr-code.png"
+                    alt="UPI QR Code"
+                    style="width: 200px; height: 200px; display: block"
+                    id="upiQrCode"
+                  />
+                </div>
+                <div
+                  style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.6)"
+                >
+                  <p>
+                    <i
+                      class="fas fa-mobile-alt"
+                      style="color: var(--accent)"
+                    ></i>
+                    UPI ID:
+                    <strong style="color: var(--accent)">yourupi@bank</strong>
+                  </p>
+                  <p style="margin-top: 0.3rem">
+                    <i
+                      class="fas fa-info-circle"
+                      style="color: var(--accent)"
+                    ></i>
+                    After payment, upload the receipt screenshot below
+                  </p>
+                </div>
               </div>
-              <div
-                class="payment-method"
-                onclick="selectPayment(this)"
-                role="button"
-                tabindex="0"
-              >
-                <i class="fas fa-credit-card"></i>
-                <span>Card</span>
-              </div>
-              <div
-                class="payment-method"
-                onclick="selectPayment(this)"
-                role="button"
-                tabindex="0"
-              >
-                <i class="fas fa-money-bill-wave"></i>
-                <span>Cash</span>
+
+              <div class="form-group">
+                <label
+                  ><i class="fas fa-receipt" style="margin-right: 0.3rem"></i>
+                  Upload UPI Payment Receipt
+                  <span style="color: var(--danger); font-size: 0.75rem"
+                    >*Required</span
+                  ></label
+                >
+                <div class="file-upload">
+                  <input
+                    type="file"
+                    id="upiReceipt"
+                    accept="image/*"
+                    required
+                    onchange="handleReceiptUpload(this)"
+                  />
+                  <i class="fas fa-cloud-upload-alt"></i>
+                  <p>Click to upload payment receipt screenshot</p>
+                  <span
+                    style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.5)"
+                    >Screenshot from your UPI app showing transaction ID</span
+                  >
+                </div>
+                <div class="uploaded-files" id="receiptFiles"></div>
               </div>
             </div>
             <div class="form-group">
-              <label
+              <div
                 style="
                   display: flex;
                   align-items: flex-start;
                   gap: 0.8rem;
                   cursor: pointer;
-                  font-weight: 400;
-                  text-transform: none;
-                  font-family: var(--font-body);
-                  line-height: 1.5;
                 "
+                onclick="document.getElementById('terms').click()"
               >
-                <input
-                  type="checkbox"
-                  id="terms"
-                  style="width: auto; margin-top: 0.3rem"
-                />
-                <span
-                  >I agree to the
+                <div
+                  style="
+                    position: relative;
+                    min-width: 22px;
+                    height: 22px;
+                    margin-top: 0.2rem;
+                  "
+                >
+                  <input
+                    type="checkbox"
+                    id="terms"
+                    style="
+                      position: absolute;
+                      opacity: 0;
+                      width: 22px;
+                      height: 22px;
+                      cursor: pointer;
+                      z-index: 2;
+                    "
+                    onchange="toggleCheckboxVisual(this)"
+                  />
+                  <span
+                    id="checkboxVisual"
+                    style="
+                      display: block;
+                      width: 22px;
+                      height: 22px;
+                      border: 2px solid var(--accent);
+                      border-radius: 4px;
+                      background: transparent;
+                      transition: all 0.3s;
+                      position: relative;
+                    "
+                  >
+                    <i
+                      class="fas fa-check"
+                      id="checkboxCheck"
+                      style="
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%) scale(0);
+                        color: var(--dark);
+                        font-size: 0.8rem;
+                        transition: all 0.3s;
+                      "
+                    ></i>
+                  </span>
+                </div>
+                <label
+                  style="
+                    font-weight: 400;
+                    text-transform: none;
+                    font-family: var(--font-body);
+                    line-height: 1.5;
+                    cursor: pointer;
+                    margin: 0;
+                  "
+                >
+                  I agree to the
                   <a
                     href="terms.html"
                     style="color: var(--accent)"
                     target="_blank"
                     >terms & conditions</a
                   >
-                  and confirm all documents provided are genuine and
-                  valid.</span
-                >
-              </label>
+                  and confirm all documents provided are genuine and valid. I
+                  have paid ₹500 advance fee via UPI and uploaded the payment
+                  receipt.
+                </label>
+              </div>
             </div>
           </div>
 
@@ -1843,6 +2087,69 @@
         return price;
       }
 
+      function handlePickupChange() {
+        const pickupInput = document.getElementById("pickupDate");
+        const returnInput = document.getElementById("returnDate");
+        const duration = parseInt(document.getElementById("duration").value);
+
+        if (!pickupInput.value) return;
+
+        const pickup = new Date(pickupInput.value);
+        const returnDate = new Date(
+          pickup.getTime() + duration * 60 * 60 * 1000,
+        );
+
+        // Format for datetime-local input (YYYY-MM-DDTHH:MM)
+        returnInput.value = formatDateTimeLocal(returnDate);
+        checkAvailability();
+      }
+
+      function handleReturnChange() {
+        const pickupInput = document.getElementById("pickupDate");
+        const returnInput = document.getElementById("returnDate");
+        const duration = parseInt(document.getElementById("duration").value);
+
+        if (!returnInput.value) return;
+
+        const returnDate = new Date(returnInput.value);
+        const pickup = new Date(
+          returnDate.getTime() - duration * 60 * 60 * 1000,
+        );
+
+        pickupInput.value = formatDateTimeLocal(pickup);
+        checkAvailability();
+      }
+
+      function formatDateTimeLocal(date) {
+        const pad = (n) => n.toString().padStart(2, "0");
+        return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+      }
+
+      function handleDurationChange() {
+        const pickupInput = document.getElementById("pickupDate");
+        const returnInput = document.getElementById("returnDate");
+        const duration = parseInt(document.getElementById("duration").value);
+
+        // If pickup is set, recalculate return
+        if (pickupInput.value) {
+          const pickup = new Date(pickupInput.value);
+          const returnDate = new Date(
+            pickup.getTime() + duration * 60 * 60 * 1000,
+          );
+          returnInput.value = formatDateTimeLocal(returnDate);
+        }
+        // If return is set but pickup isn't, recalculate pickup
+        else if (returnInput.value) {
+          const returnDate = new Date(returnInput.value);
+          const pickup = new Date(
+            returnDate.getTime() - duration * 60 * 60 * 1000,
+          );
+          pickupInput.value = formatDateTimeLocal(pickup);
+        }
+        calculatePrice();
+        checkAvailability();
+      }
+
       function checkAvailability() {
         const pickup = new Date(document.getElementById("pickupDate").value);
         const returnD = new Date(document.getElementById("returnDate").value);
@@ -1952,7 +2259,7 @@
           if (
             uploadedFiles.aadhaar.length === 0 ||
             uploadedFiles.license.length === 0 ||
-            uploadedFiles.photo.length === 0
+            (!photoCaptured && !document.getElementById("photoData").value)
           ) {
             showToast("Please upload Aadhaar, License, and Photo", "error");
             return false;
@@ -1960,7 +2267,11 @@
         }
         if (step === 4) {
           if (!document.getElementById("terms").checked) {
-            showToast("Please accept the terms", "error");
+            showToast("Please accept the terms & conditions", "error");
+            return false;
+          }
+          if (!receiptUploaded || !receiptFile) {
+            showToast("Please upload UPI payment receipt", "error");
             return false;
           }
         }
@@ -1992,13 +2303,6 @@
         btn.parentElement.remove();
       }
 
-      function selectPayment(el) {
-        document
-          .querySelectorAll(".payment-method")
-          .forEach((m) => m.classList.remove("selected"));
-        el.classList.add("selected");
-      }
-
       async function submitBooking() {
         const bookingId =
           "OWN-" + Math.random().toString(36).substr(2, 6).toUpperCase();
@@ -2023,9 +2327,15 @@
           documents: {
             aadhaar: uploadedFiles.aadhaar.map((f) => f.name),
             license: uploadedFiles.license.map((f) => f.name),
-            photo: uploadedFiles.photo.map((f) => f.name),
+            photo: document.getElementById("photoData").value
+              ? ["live-photo-captured"]
+              : [],
             reference: uploadedFiles.reference.map((f) => f.name),
+            upiReceipt: receiptFile ? receiptFile.name : "",
           },
+          paymentMethod: "UPI",
+          upiReceiptName: receiptFile ? receiptFile.name : "",
+          photoData: document.getElementById("photoData").value || "", // Base64 photo (note: this can be large)
           status: "Pending",
           timestamp: new Date().toISOString(),
         };
@@ -2050,6 +2360,9 @@
         showStep(5);
         updateStepIndicator();
         showToast("Booking submitted! Awaiting approval.");
+        // Clear all form data
+        localStorage.removeItem("ownwheel_bookings");
+        document.getElementById("contactForm")?.reset();
       }
 
       // Mobile menu
@@ -2081,6 +2394,143 @@
             : "fas fa-check-circle";
         toast.className = "toast show" + (type === "error" ? " error" : "");
         setTimeout(() => toast.classList.remove("show"), 3500);
+      }
+
+      // Selfie
+      let photoStream = null;
+      let photoCaptured = false;
+
+      function startCamera() {
+        const video = document.getElementById("video");
+        const placeholder = document.getElementById("cameraPlaceholder");
+        const startBtn = document.getElementById("startCameraBtn");
+        const captureBtn = document.getElementById("captureBtn");
+
+        navigator.mediaDevices
+          .getUserMedia({ video: { facingMode: "user" }, audio: false })
+          .then((stream) => {
+            photoStream = stream;
+            video.srcObject = stream;
+            video.style.display = "block";
+            placeholder.style.display = "none";
+            startBtn.style.display = "none";
+            captureBtn.style.display = "inline-flex";
+            document
+              .querySelector(".live-photo-container")
+              .classList.add("active");
+          })
+          .catch((err) => {
+            showToast(
+              "Camera access denied. Please allow camera permissions.",
+              "error",
+            );
+            console.error("Camera error:", err);
+          });
+      }
+
+      function capturePhoto() {
+        const video = document.getElementById("video");
+        const canvas = document.getElementById("canvas");
+        const capturedImg = document.getElementById("capturedPhoto");
+        const captureBtn = document.getElementById("captureBtn");
+        const retakeBtn = document.getElementById("retakeBtn");
+        const photoData = document.getElementById("photoData");
+
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        const ctx = canvas.getContext("2d");
+        ctx.translate(canvas.width, 0);
+        ctx.scale(-1, 1); // Un-mirror for correct photo
+        ctx.drawImage(video, 0, 0);
+
+        const dataUrl = canvas.toDataURL("image/jpeg", 0.9);
+        photoData.value = dataUrl;
+
+        capturedImg.src = dataUrl;
+        capturedImg.style.display = "block";
+        video.style.display = "none";
+
+        // Stop camera
+        if (photoStream) {
+          photoStream.getTracks().forEach((track) => track.stop());
+          photoStream = null;
+        }
+
+        captureBtn.style.display = "none";
+        retakeBtn.style.display = "inline-flex";
+        photoCaptured = true;
+
+        // Show file tag
+        const container = document.getElementById("photoFiles");
+        container.innerHTML = `
+    <div class="file-tag">
+      <i class="fas fa-check-circle"></i> Live Photo Captured 
+      <button onclick="retakePhoto()"><i class="fas fa-times"></i></button>
+    </div>
+  `;
+
+        showToast("Photo captured successfully!");
+      }
+
+      function retakePhoto() {
+        const video = document.getElementById("video");
+        const capturedImg = document.getElementById("capturedPhoto");
+        const captureBtn = document.getElementById("captureBtn");
+        const retakeBtn = document.getElementById("retakeBtn");
+        const photoData = document.getElementById("photoData");
+
+        capturedImg.style.display = "none";
+        photoData.value = "";
+        photoCaptured = false;
+        document.getElementById("photoFiles").innerHTML = "";
+
+        startCamera();
+      }
+
+      // UPI Payment Section
+      let receiptUploaded = false;
+      let receiptFile = null;
+
+      function handleReceiptUpload(input) {
+        const file = input.files[0];
+        if (!file) return;
+
+        if (file.size > 5 * 1024 * 1024) {
+          showToast("File too large. Max 5MB allowed.", "error");
+          return;
+        }
+
+        receiptFile = file;
+        receiptUploaded = true;
+
+        const container = document.getElementById("receiptFiles");
+        container.innerHTML = `
+          <div class="file-tag">
+            <i class="fas fa-file-alt"></i> ${file.name} 
+            <button onclick="removeReceipt(this)"><i class="fas fa-times"></i></button>
+          </div>
+        `;
+        showToast("Receipt uploaded successfully!");
+      }
+
+      function removeReceipt(btn) {
+        receiptFile = null;
+        receiptUploaded = false;
+        document.getElementById("upiReceipt").value = "";
+        btn.parentElement.remove();
+      }
+
+      //Terms & Conditions Checkbox
+      function toggleCheckboxVisual(checkbox) {
+        const visual = document.getElementById("checkboxVisual");
+        const check = document.getElementById("checkboxCheck");
+        if (checkbox.checked) {
+          visual.style.background = "var(--accent)";
+          check.style.transform = "translate(-50%, -50%) scale(1)";
+        } else {
+          visual.style.background = "transparent";
+          check.style.transform = "translate(-50%, -50%) scale(0)";
+        }
       }
     </script>
   </body>

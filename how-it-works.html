@@ -890,6 +890,9 @@
         padding: 2rem;
       }
       .timeline-content h3 {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
         font-family: var(--font-heading);
         font-size: 1.4rem;
         margin-bottom: 0.8rem;
@@ -939,26 +942,50 @@
       }
       @media (max-width: 600px) {
         .steps-timeline {
-          padding-left: 2rem;
+          padding-left: 0;
+        }
+        .steps-timeline::before {
+          display: none;
+        }
+        .timeline-item {
+          padding-left: 0;
+          margin-bottom: 2.5rem;
+          text-align: center;
         }
         .timeline-dot {
-          left: -2.1rem;
-          width: 30px;
-          height: 30px;
-          font-size: 0.8rem;
+          position: relative;
+          left: auto;
+          top: auto;
+          margin: 0 auto 0.3rem;
+          width: 45px;
+          height: 45px;
+          font-size: 1.2rem;
         }
         .timeline-content {
           padding: 1.5rem;
+        }
+        .timeline-content h3 {
+          justify-content: center;
+          font-size: 1.2rem;
+        }
+        .timeline-content ul {
+          text-align: left;
+          display: inline-block;
+          margin-left: 0;
         }
       }
     </style>
   </head>
   <body>
     <div class="mobile-menu-overlay" id="mobileMenu">
-      <button class="mobile-menu-close" onclick="toggleMobileMenu()">
+      <button
+        class="mobile-menu-close"
+        onclick="toggleMobileMenu()"
+        aria-label="Close menu"
+      >
         <i class="fas fa-times"></i>
       </button>
-      <a href="index.html">Home</a>
+      <a href="/">Home</a>
       <a href="cars.html">Our Cars</a>
       <a href="booking.html">Book Now</a>
       <a href="how-it-works.html" class="active">How It Works</a>
@@ -967,12 +994,12 @@
     </div>
 
     <nav class="navbar" id="navbar">
-      <a href="index.html" class="logo">
+      <a href="/" class="logo">
         <img src="logo.png" alt="Own Wheel Logo" class="logo-img" />
         <div class="logo-text">OWN WHEEL<span>ELEVATE YOUR DRIVE</span></div>
       </a>
       <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
+        <li><a href="/">Home</a></li>
         <li><a href="cars.html">Cars</a></li>
         <li><a href="booking.html">Book Now</a></li>
         <li><a href="how-it-works.html" class="active">How It Works</a></li>
@@ -988,7 +1015,7 @@
         <h1>How It Works</h1>
         <p>Book your self-drive car in 4 simple steps</p>
         <div class="breadcrumb">
-          <a href="index.html">Home</a><span>/</span><span>How It Works</span>
+          <a href="/">Home</a><span>/</span><span>How It Works</span>
         </div>
       </div>
     </section>
@@ -1125,7 +1152,7 @@
         <div class="footer-links">
           <h4>Quick Links</h4>
           <ul>
-            <li><a href="index.html">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="cars.html">Our Cars</a></li>
             <li><a href="booking.html">Book Now</a></li>
             <li><a href="how-it-works.html">How It Works</a></li>
