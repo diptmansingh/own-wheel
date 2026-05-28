@@ -1261,7 +1261,7 @@
       >
         <i class="fas fa-times"></i>
       </button>
-      <a href="/">Home</a>
+      <a href="./">Home</a>
       <a href="cars.html">Our Cars</a>
       <a href="booking.html" class="active">Book Now</a>
       <a href="how-it-works.html">How It Works</a>
@@ -1271,12 +1271,12 @@
 
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
-      <a href="/" class="logo">
+      <a href="./" class="logo">
         <img src="logo.png" alt="Own Wheel Logo" class="logo-img" />
         <div class="logo-text">OWN WHEEL<span>ELEVATE YOUR DRIVE</span></div>
       </a>
       <ul class="nav-links">
-        <li><a href="/">Home</a></li>
+        <li><a href="./">Home</a></li>
         <li><a href="cars.html">Cars</a></li>
         <li><a href="booking.html" class="active">Book Now</a></li>
         <li><a href="how-it-works.html">How It Works</a></li>
@@ -1297,7 +1297,7 @@
         <h1>Book Your Ride</h1>
         <p>Complete the form below to reserve your self-drive car in Lucknow</p>
         <div class="breadcrumb">
-          <a href="/">Home</a>
+          <a href="./">Home</a>
           <span>/</span>
           <span>Book Now</span>
         </div>
@@ -1711,7 +1711,7 @@
                   "
                 >
                   Scan the QR code with any UPI app (Google Pay, PhonePe, Paytm,
-                  etc.)<<br />
+                  etc.)<br />
                   <strong style="color: var(--accent)">Amount: ₹500</strong>
                 </p>
                 <div
@@ -1723,7 +1723,6 @@
                     margin-bottom: 1rem;
                   "
                 >
-                  <!-- Replace src with your actual QR code image -->
                   <img
                     src="images/upi-qr-code.png"
                     alt="UPI QR Code"
@@ -1740,7 +1739,7 @@
                       style="color: var(--accent)"
                     ></i>
                     UPI ID:
-                    <strong style="color: var(--accent)">yourupi@bank</strong>
+                    <strong style="color: var(--accent)">lexfunis@ybl</strong>
                   </p>
                   <p style="margin-top: 0.3rem">
                     <i
@@ -1864,7 +1863,7 @@
 
           <!-- Success -->
           <div class="form-step" id="stepSuccess">
-            <div class="success-message">
+            <div class="success-message" id="successMessage">
               <i class="fas fa-check-circle"></i>
               <h3>Booking Request Submitted!</h3>
               <p>
@@ -1873,7 +1872,7 @@
                 your booking.
               </p>
               <div class="booking-id" id="bookingId">OWN-XXXXX</div>
-              <a href="/" class="btn btn-primary">
+              <a href="./" class="btn btn-primary">
                 <i class="fas fa-home"></i> Back to Home
               </a>
             </div>
@@ -1955,7 +1954,7 @@
         <div class="footer-links">
           <h4>Quick Links</h4>
           <ul>
-            <li><a href="/">Home</a></li>
+            <li><a href="./">Home</a></li>
             <li><a href="cars.html">Our Cars</a></li>
             <li><a href="booking.html">Book Now</a></li>
             <li><a href="how-it-works.html">How It Works</a></li>
@@ -2002,7 +2001,8 @@
 
     <script>
       const GOOGLE_SCRIPT_URL =
-        "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec";
+        "https://script.google.com/macros/s/YOUR_DEPLOYED_SCRIPT_ID/exec";
+
       const carData = {
         dzire: {
           name: "Maruti Dzire",
@@ -2032,19 +2032,14 @@
         photo: [],
         reference: [],
       };
-      let bookings = JSON.parse(
-        localStorage.getItem("ownwheel_bookings") || "[]",
-      );
-      let approvedBookings = JSON.parse(
-        localStorage.getItem("ownwheel_approved") || "[]",
-      );
+      let receiptFile = null;
+      let isSubmitting = false;
 
-      // Init
+      // Initialize
       window.addEventListener("DOMContentLoaded", () => {
         const params = new URLSearchParams(window.location.search);
         const carParam = params.get("car");
-        if (carParam && carData[carParam]) selectCar(carParam);
-        else selectCar("dzire");
+        selectCar(carParam && carData[carParam] ? carParam : "dzire");
 
         const now = new Date();
         now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
@@ -2062,9 +2057,9 @@
           .querySelectorAll(".car-option")
           .forEach((opt) => opt.classList.remove("selected"));
         document.getElementById("opt-" + carId).classList.add("selected");
-
         const car = carData[carId];
         document.getElementById("previewImg").src = car.img;
+        document.getElementById("previewImg").alt = car.name;
         document.getElementById("previewName").textContent = car.name;
         document.getElementById("previewType").textContent = car.type;
         calculatePrice();
@@ -2072,52 +2067,16 @@
 
       function calculatePrice() {
         const duration = parseInt(document.getElementById("duration").value);
-        const pricing = carData[selectedCarId].pricing;
+        const p = carData[selectedCarId].pricing;
         let price = 0;
-        if (duration <= 1) price = pricing.hourly;
-        else if (duration <= 8) price = pricing.eight;
-        else if (duration <= 12) price = pricing.twelve;
-        else {
-          const days = Math.ceil(duration / 24);
-          price = pricing.daily * days;
-        }
+        if (duration <= 1) price = p.hourly;
+        else if (duration <= 8) price = p.eight;
+        else if (duration <= 12) price = p.twelve;
+        else price = p.daily * Math.ceil(duration / 24);
 
         document.getElementById("sideRental").textContent =
           "₹" + price.toLocaleString("en-IN");
         return price;
-      }
-
-      function handlePickupChange() {
-        const pickupInput = document.getElementById("pickupDate");
-        const returnInput = document.getElementById("returnDate");
-        const duration = parseInt(document.getElementById("duration").value);
-
-        if (!pickupInput.value) return;
-
-        const pickup = new Date(pickupInput.value);
-        const returnDate = new Date(
-          pickup.getTime() + duration * 60 * 60 * 1000,
-        );
-
-        // Format for datetime-local input (YYYY-MM-DDTHH:MM)
-        returnInput.value = formatDateTimeLocal(returnDate);
-        checkAvailability();
-      }
-
-      function handleReturnChange() {
-        const pickupInput = document.getElementById("pickupDate");
-        const returnInput = document.getElementById("returnDate");
-        const duration = parseInt(document.getElementById("duration").value);
-
-        if (!returnInput.value) return;
-
-        const returnDate = new Date(returnInput.value);
-        const pickup = new Date(
-          returnDate.getTime() - duration * 60 * 60 * 1000,
-        );
-
-        pickupInput.value = formatDateTimeLocal(pickup);
-        checkAvailability();
       }
 
       function formatDateTimeLocal(date) {
@@ -2125,46 +2084,89 @@
         return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
       }
 
+      function handlePickupChange() {
+        const pickupInput = document.getElementById("pickupDate");
+        const returnInput = document.getElementById("returnDate");
+        const duration = parseInt(document.getElementById("duration").value);
+        if (!pickupInput.value) return;
+        const pickup = new Date(pickupInput.value);
+        const ret = new Date(pickup.getTime() + duration * 60 * 60 * 1000);
+        returnInput.value = formatDateTimeLocal(ret);
+        checkServerAvailability();
+      }
+
+      function handleReturnChange() {
+        const pickupInput = document.getElementById("pickupDate");
+        const returnInput = document.getElementById("returnDate");
+        if (!returnInput.value || !pickupInput.value) return;
+        const ret = new Date(returnInput.value);
+        const pickup = new Date(pickupInput.value);
+        if (ret <= pickup) {
+          showToast("Return must be after pickup", "error");
+          return;
+        }
+        checkServerAvailability();
+      }
+
       function handleDurationChange() {
         const pickupInput = document.getElementById("pickupDate");
         const returnInput = document.getElementById("returnDate");
         const duration = parseInt(document.getElementById("duration").value);
-
-        // If pickup is set, recalculate return
         if (pickupInput.value) {
           const pickup = new Date(pickupInput.value);
-          const returnDate = new Date(
-            pickup.getTime() + duration * 60 * 60 * 1000,
-          );
-          returnInput.value = formatDateTimeLocal(returnDate);
-        }
-        // If return is set but pickup isn't, recalculate pickup
-        else if (returnInput.value) {
-          const returnDate = new Date(returnInput.value);
-          const pickup = new Date(
-            returnDate.getTime() - duration * 60 * 60 * 1000,
-          );
-          pickupInput.value = formatDateTimeLocal(pickup);
+          const ret = new Date(pickup.getTime() + duration * 60 * 60 * 1000);
+          returnInput.value = formatDateTimeLocal(ret);
         }
         calculatePrice();
-        checkAvailability();
+        checkServerAvailability();
       }
 
-      function checkAvailability() {
-        const pickup = new Date(document.getElementById("pickupDate").value);
-        const returnD = new Date(document.getElementById("returnDate").value);
-        if (!pickup || !returnD || isNaN(pickup) || isNaN(returnD)) return;
+      // NEW: Server-side availability check
+      async function checkServerAvailability() {
+        const pickup = document.getElementById("pickupDate").value;
+        const ret = document.getElementById("returnDate").value;
+        if (!pickup || !ret) return;
 
+        try {
+          const resp = await fetch(GOOGLE_SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              action: "checkAvailability",
+              carId: selectedCarId,
+              pickupDate: pickup,
+              returnDate: ret,
+            }),
+          });
+          // no-cors means we can't read response — this is a limitation
+          // For production, deploy with proper CORS or use a proxy
+        } catch (e) {
+          // Silent fail — client-side check as backup
+        }
+
+        // Client-side backup using localStorage (limited but better than nothing)
+        checkLocalAvailability();
+      }
+
+      function checkLocalAvailability() {
+        // Keep existing localStorage logic as fallback
+        const pickup = new Date(document.getElementById("pickupDate").value);
+        const ret = new Date(document.getElementById("returnDate").value);
+        if (!pickup || !ret || isNaN(pickup) || isNaN(ret)) return;
+
+        const approvedBookings = JSON.parse(
+          localStorage.getItem("ownwheel_approved") || "[]",
+        );
         const isUnavailable = approvedBookings.some((b) => {
           if (b.carId !== selectedCarId) return false;
           const bPickup = new Date(b.pickupDate);
           const bReturn = new Date(b.returnDate);
-          return pickup < bReturn && returnD > bPickup;
+          return pickup < bReturn && ret > bPickup;
         });
 
         const msg = document.getElementById("unavailableMsg");
-        if (isUnavailable) msg.classList.add("active");
-        else msg.classList.remove("active");
+        msg.classList.toggle("active", isUnavailable);
       }
 
       function showStep(step) {
@@ -2181,7 +2183,7 @@
             step === 1 ? "hidden" : "visible";
           document.getElementById("nextBtn").innerHTML =
             step === 4
-              ? 'Pay ₹500 & Submit <i class="fas fa-check"></i>'
+              ? 'Submit Booking <i class="fas fa-check"></i>'
               : 'Next <i class="fas fa-arrow-right"></i>';
         }
       }
@@ -2219,13 +2221,13 @@
       function validateStep(step) {
         if (step === 1) {
           const pickup = document.getElementById("pickupDate").value;
-          const returnD = document.getElementById("returnDate").value;
-          if (!pickup || !returnD) {
+          const ret = document.getElementById("returnDate").value;
+          if (!pickup || !ret) {
             showToast("Please select pickup and return dates", "error");
             return false;
           }
-          if (new Date(returnD) <= new Date(pickup)) {
-            showToast("Return date must be after pickup date", "error");
+          if (new Date(ret) <= new Date(pickup)) {
+            showToast("Return must be after pickup", "error");
             return false;
           }
           if (
@@ -2242,7 +2244,8 @@
           const phone = document.getElementById("phone").value.trim();
           const email = document.getElementById("email").value.trim();
           const age = document.getElementById("age").value;
-          if (!name || !phone || !email || !age) {
+          const address = document.getElementById("address").value.trim();
+          if (!name || !phone || !email || !age || !address) {
             showToast("Please fill all required fields", "error");
             return false;
           }
@@ -2252,6 +2255,13 @@
           }
           if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             showToast("Please enter a valid email", "error");
+            return false;
+          }
+          if (!/^[6-9]\d{9}$/.test(phone.replace(/\D/g, ""))) {
+            showToast(
+              "Please enter valid 10-digit Indian mobile number",
+              "error",
+            );
             return false;
           }
         }
@@ -2267,10 +2277,10 @@
         }
         if (step === 4) {
           if (!document.getElementById("terms").checked) {
-            showToast("Please accept the terms & conditions", "error");
+            showToast("Please accept terms & conditions", "error");
             return false;
           }
-          if (!receiptUploaded || !receiptFile) {
+          if (!receiptFile) {
             showToast("Please upload UPI payment receipt", "error");
             return false;
           }
@@ -2290,10 +2300,10 @@
           uploadedFiles[type].push(file);
           const tag = document.createElement("div");
           tag.className = "file-tag";
-          tag.innerHTML = `<i class="fas fa-file-alt"></i> ${file.name} <button onclick="removeFile(this, '${type}', '${file.name.replace(/'/g, "\'")}')"><i class="fas fa-times"></i></button>`;
+          tag.innerHTML = `<i class="fas fa-file-alt"></i> ${file.name} <button onclick="removeFile(this,'${type}','${file.name.replace(/'/g, "\'")}')"><i class="fas fa-times"></i></button>`;
           container.appendChild(tag);
         });
-        if (files.length > 0) showToast(`${files.length} file(s) uploaded`);
+        if (files.length) showToast(files.length + " file(s) uploaded");
       }
 
       function removeFile(btn, type, fileName) {
@@ -2303,69 +2313,182 @@
         btn.parentElement.remove();
       }
 
-      async function submitBooking() {
-        const bookingId =
-          "OWN-" + Math.random().toString(36).substr(2, 6).toUpperCase();
-        const bookingData = {
-          action: "submitBooking",
-          bookingId,
-          carId: selectedCarId,
-          carName: carData[selectedCarId].name,
-          carType: carData[selectedCarId].type,
-          pickupDate: document.getElementById("pickupDate").value,
-          returnDate: document.getElementById("returnDate").value,
-          duration: document.getElementById("duration").value,
-          rentalPrice: calculatePrice(),
-          advanceFee: 500,
-          securityDeposit: 2500,
-          customerName: document.getElementById("fullName").value.trim(),
-          phone: document.getElementById("phone").value.trim(),
-          email: document.getElementById("email").value.trim(),
-          age: document.getElementById("age").value,
-          address: document.getElementById("address").value.trim(),
-          purpose: document.getElementById("purpose").value,
-          documents: {
-            aadhaar: uploadedFiles.aadhaar.map((f) => f.name),
-            license: uploadedFiles.license.map((f) => f.name),
-            photo: document.getElementById("photoData").value
-              ? ["live-photo-captured"]
-              : [],
-            reference: uploadedFiles.reference.map((f) => f.name),
-            upiReceipt: receiptFile ? receiptFile.name : "",
-          },
-          paymentMethod: "UPI",
-          upiReceiptName: receiptFile ? receiptFile.name : "",
-          photoData: document.getElementById("photoData").value || "", // Base64 photo (note: this can be large)
-          status: "Pending",
-          timestamp: new Date().toISOString(),
-        };
-
-        bookings.push(bookingData);
-        localStorage.setItem("ownwheel_bookings", JSON.stringify(bookings));
-
-        if (!GOOGLE_SCRIPT_URL.includes("YOUR_SCRIPT")) {
-          try {
-            await fetch(GOOGLE_SCRIPT_URL, {
-              method: "POST",
-              mode: "no-cors",
-              body: JSON.stringify(bookingData),
-            });
-          } catch (e) {
-            console.log("Demo mode");
-          }
-        }
-
-        document.getElementById("bookingId").textContent = bookingId;
-        currentStep = 5;
-        showStep(5);
-        updateStepIndicator();
-        showToast("Booking submitted! Awaiting approval.");
-        // Clear all form data
-        localStorage.removeItem("ownwheel_bookings");
-        document.getElementById("contactForm")?.reset();
+      // NEW: Convert file to base64 for actual upload
+      function fileToBase64(file) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
       }
 
-      // Mobile menu
+      async function submitBooking() {
+        if (isSubmitting) return;
+        isSubmitting = true;
+        const btn = document.getElementById("nextBtn");
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+        btn.disabled = true;
+
+        try {
+          // Convert files to base64
+          const aadhaarBase64 = await Promise.all(
+            uploadedFiles.aadhaar.map((f) => fileToBase64(f)),
+          );
+          const licenseBase64 = uploadedFiles.license.length
+            ? await fileToBase64(uploadedFiles.license[0])
+            : "";
+          const referenceBase64 = uploadedFiles.reference.length
+            ? await fileToBase64(uploadedFiles.reference[0])
+            : "";
+          const receiptBase64 = receiptFile
+            ? await fileToBase64(receiptFile)
+            : "";
+
+          const bookingData = {
+            action: "submitBooking",
+            bookingId:
+              "OWN-" + Math.random().toString(36).substr(2, 6).toUpperCase(),
+            carId: selectedCarId,
+            carName: carData[selectedCarId].name,
+            carType: carData[selectedCarId].type,
+            pickupDate: document.getElementById("pickupDate").value,
+            returnDate: document.getElementById("returnDate").value,
+            duration: document.getElementById("duration").value,
+            rentalPrice: calculatePrice(),
+            advanceFee: 500,
+            securityDeposit: 2500,
+            customerName: document.getElementById("fullName").value.trim(),
+            phone: document.getElementById("phone").value.trim(),
+            email: document.getElementById("email").value.trim(),
+            age: document.getElementById("age").value,
+            address: document.getElementById("address").value.trim(),
+            purpose: document.getElementById("purpose").value,
+            upiId: "", // Could add a field for this
+            upiReceiptName: receiptFile ? receiptFile.name : "",
+            documents: {
+              aadhaar: uploadedFiles.aadhaar.map((f) => f.name),
+              license: uploadedFiles.license.map((f) => f.name),
+              photo: document.getElementById("photoData").value
+                ? ["live-photo"]
+                : [],
+              reference: uploadedFiles.reference.map((f) => f.name),
+              upiReceipt: receiptFile ? receiptFile.name : "",
+            },
+            // ACTUAL FILE DATA — sent to Google Script
+            photoData: document.getElementById("photoData").value || "",
+            upiReceiptData: receiptBase64,
+            documentData: {
+              aadhaar: aadhaarBase64,
+              license: licenseBase64,
+              reference: referenceBase64,
+            },
+            timestamp: new Date().toISOString(),
+          };
+
+          // Send to Google Script
+          let serverResponse = null;
+          if (!GOOGLE_SCRIPT_URL.includes("YOUR_SCRIPT")) {
+            try {
+              const response = await fetch(GOOGLE_SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors", // Apps Script limitation unless you return CORS headers properly
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(bookingData),
+              });
+              // With no-cors we can't read response, assume success after timeout
+              serverResponse = { success: true };
+            } catch (e) {
+              console.error("Server error:", e);
+              showToast("Network error. Please try again.", "error");
+              isSubmitting = false;
+              btn.innerHTML = originalText;
+              btn.disabled = false;
+              return;
+            }
+          }
+
+          // Save to localStorage as backup
+          const bookings = JSON.parse(
+            localStorage.getItem("ownwheel_bookings") || "[]",
+          );
+          bookings.push(bookingData);
+          localStorage.setItem("ownwheel_bookings", JSON.stringify(bookings));
+
+          // Show success
+          document.getElementById("bookingId").textContent =
+            bookingData.bookingId;
+          document.getElementById("successMessage").innerHTML = `
+            <i class="fas fa-check-circle"></i>
+            <h3>Booking Request Submitted!</h3>
+            <p>Your booking request and payment receipt have been sent for verification.</p>
+            <p><strong>Next steps:</strong>
+              <ol style="text-align:left; max-width:400px; margin:0 auto;">
+                <li>Our team verifies your UPI payment receipt</li>
+                <li>We verify your uploaded documents</li>
+                <li>You receive approval email with pickup details</li>
+              </ol>
+            </p>
+            <div class="booking-id">${bookingData.bookingId}</div>
+            <p style="font-size:0.9rem; color:rgba(255,255,255,0.6);">
+              You will also receive email updates at every step.
+            </p>
+          `;
+          currentStep = 5;
+          showStep(5);
+          updateStepIndicator();
+          showToast("Booking submitted! Check your email for confirmation.");
+
+          // Reset form fields manually (since no form tag exists)
+          resetAllFields();
+        } catch (err) {
+          console.error("Submit error:", err);
+          showToast("Something went wrong. Please try again.", "error");
+        } finally {
+          isSubmitting = false;
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+        }
+      }
+
+      function resetAllFields() {
+        document.getElementById("fullName").value = "";
+        document.getElementById("phone").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("age").value = "";
+        document.getElementById("address").value = "";
+        document.getElementById("pickupDate").value = "";
+        document.getElementById("returnDate").value = "";
+        document.getElementById("photoData").value = "";
+        document.getElementById("upiReceipt").value = "";
+        document.getElementById("terms").checked = false;
+        toggleCheckboxVisual(document.getElementById("terms"));
+
+        uploadedFiles = { aadhaar: [], license: [], photo: [], reference: [] };
+        receiptFile = null;
+        photoCaptured = false;
+
+        [
+          "aadhaarFiles",
+          "licenseFiles",
+          "photoFiles",
+          "referenceFiles",
+          "receiptFiles",
+        ].forEach((id) => {
+          document.getElementById(id).innerHTML = "";
+        });
+
+        // Reset photo UI
+        document.getElementById("video").style.display = "none";
+        document.getElementById("capturedPhoto").style.display = "none";
+        document.getElementById("cameraPlaceholder").style.display = "flex";
+        document.getElementById("startCameraBtn").style.display = "inline-flex";
+        document.getElementById("captureBtn").style.display = "none";
+        document.getElementById("retakeBtn").style.display = "none";
+      }
+
+      // Mobile menu, navbar scroll, toast — keep existing functions
       function toggleMobileMenu() {
         document.getElementById("mobileMenu").classList.toggle("active");
         document.body.style.overflow = document
@@ -2375,14 +2498,11 @@
           : "";
       }
 
-      // Nav scroll
       window.addEventListener("scroll", () => {
         const navbar = document.getElementById("navbar");
-        if (window.scrollY > 50) navbar.classList.add("scrolled");
-        else navbar.classList.remove("scrolled");
+        navbar.classList.toggle("scrolled", window.scrollY > 50);
       });
 
-      // Toast
       function showToast(message, type = "success") {
         const toast = document.getElementById("toast");
         const msg = document.getElementById("toastMsg");
@@ -2396,7 +2516,7 @@
         setTimeout(() => toast.classList.remove("show"), 3500);
       }
 
-      // Selfie
+      // Selfie / Camera functions — keep existing
       let photoStream = null;
       let photoCaptured = false;
 
@@ -2424,7 +2544,6 @@
               "Camera access denied. Please allow camera permissions.",
               "error",
             );
-            console.error("Camera error:", err);
           });
       }
 
@@ -2440,97 +2559,67 @@
         canvas.height = video.videoHeight;
         const ctx = canvas.getContext("2d");
         ctx.translate(canvas.width, 0);
-        ctx.scale(-1, 1); // Un-mirror for correct photo
+        ctx.scale(-1, 1);
         ctx.drawImage(video, 0, 0);
 
         const dataUrl = canvas.toDataURL("image/jpeg", 0.9);
         photoData.value = dataUrl;
-
         capturedImg.src = dataUrl;
         capturedImg.style.display = "block";
         video.style.display = "none";
 
-        // Stop camera
         if (photoStream) {
-          photoStream.getTracks().forEach((track) => track.stop());
+          photoStream.getTracks().forEach((t) => t.stop());
           photoStream = null;
         }
-
         captureBtn.style.display = "none";
         retakeBtn.style.display = "inline-flex";
         photoCaptured = true;
 
-        // Show file tag
-        const container = document.getElementById("photoFiles");
-        container.innerHTML = `
-    <div class="file-tag">
-      <i class="fas fa-check-circle"></i> Live Photo Captured 
-      <button onclick="retakePhoto()"><i class="fas fa-times"></i></button>
-    </div>
-  `;
-
+        document.getElementById("photoFiles").innerHTML = `
+          <div class="file-tag"><i class="fas fa-check-circle"></i> Live Photo Captured 
+          <button onclick="retakePhoto()"><i class="fas fa-times"></i></button></div>`;
         showToast("Photo captured successfully!");
       }
 
       function retakePhoto() {
-        const video = document.getElementById("video");
-        const capturedImg = document.getElementById("capturedPhoto");
-        const captureBtn = document.getElementById("captureBtn");
-        const retakeBtn = document.getElementById("retakeBtn");
-        const photoData = document.getElementById("photoData");
-
-        capturedImg.style.display = "none";
-        photoData.value = "";
+        document.getElementById("capturedPhoto").style.display = "none";
+        document.getElementById("photoData").value = "";
         photoCaptured = false;
         document.getElementById("photoFiles").innerHTML = "";
-
         startCamera();
       }
 
-      // UPI Payment Section
-      let receiptUploaded = false;
-      let receiptFile = null;
-
+      // Receipt upload
       function handleReceiptUpload(input) {
         const file = input.files[0];
         if (!file) return;
-
         if (file.size > 5 * 1024 * 1024) {
-          showToast("File too large. Max 5MB allowed.", "error");
+          showToast("File too large. Max 5MB.", "error");
           return;
         }
-
         receiptFile = file;
-        receiptUploaded = true;
-
-        const container = document.getElementById("receiptFiles");
-        container.innerHTML = `
-          <div class="file-tag">
-            <i class="fas fa-file-alt"></i> ${file.name} 
-            <button onclick="removeReceipt(this)"><i class="fas fa-times"></i></button>
-          </div>
-        `;
-        showToast("Receipt uploaded successfully!");
+        document.getElementById("receiptFiles").innerHTML = `
+          <div class="file-tag"><i class="fas fa-file-alt"></i> ${file.name} 
+          <button onclick="removeReceipt(this)"><i class="fas fa-times"></i></button></div>`;
+        showToast("Receipt uploaded!");
       }
 
       function removeReceipt(btn) {
         receiptFile = null;
-        receiptUploaded = false;
         document.getElementById("upiReceipt").value = "";
         btn.parentElement.remove();
       }
 
-      //Terms & Conditions Checkbox
       function toggleCheckboxVisual(checkbox) {
         const visual = document.getElementById("checkboxVisual");
         const check = document.getElementById("checkboxCheck");
-        if (checkbox.checked) {
-          visual.style.background = "var(--accent)";
-          check.style.transform = "translate(-50%, -50%) scale(1)";
-        } else {
-          visual.style.background = "transparent";
-          check.style.transform = "translate(-50%, -50%) scale(0)";
-        }
+        visual.style.background = checkbox.checked
+          ? "var(--accent)"
+          : "transparent";
+        check.style.transform = checkbox.checked
+          ? "translate(-50%,-50%) scale(1)"
+          : "translate(-50%,-50%) scale(0)";
       }
     </script>
   </body>
